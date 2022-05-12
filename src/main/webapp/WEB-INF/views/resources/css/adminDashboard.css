@@ -1,0 +1,32 @@
+@charset "ISO-8859-1";
+
+body {
+	background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+	height : 100%;
+}
+
+
+#wrapper {
+	margin: 10px auto;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 50px;
+	background-color: white;
+}
+
+#submit {
+	display:none;
+}
+
+#wrapper {
+	overflow-x : auto;
+}
+
+/*
+.footer-wrapper {
+	
+	bottom: 0;
+	
+}
+
+*/

@@ -11,7 +11,7 @@ $(document).ready(function () {
 			responsive: true,
 			ajax: {
 				type: 'POST',
-				url: 'GetAllUsers',
+				url: 'getAllUsers',
 				//dataType : 'JSON',
 				error: function (error) {
 					alert("Error = " + error.toString());
@@ -43,7 +43,7 @@ $(document).ready(function () {
 		console.log("delete");
 	
 		$.ajax({
-			url: "DeleteUserController",
+			url: "deleteUserController",
 			type: "post",
 			data:{
 				userid: activeUserid
@@ -65,19 +65,6 @@ $(document).ready(function () {
 		console.log("edit");
 		$("#submit").click();
 
-
-		// $.ajax({
-		// 	url: "EditUserByAdminServlet",
-		// 	type: "post",
-		// 	data:{
-		// 		userid: activeUserid
-		// 	},
-		// 	success: function(){
-		// 		console.log("go to registration page");
-
-		// 	}
-	
-		// });
 	});
 
 });

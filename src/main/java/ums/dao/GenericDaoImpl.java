@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -47,26 +48,30 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 	@Transactional
 	@Override
 	public T update(T t) {
-		// TODO Auto-generated method stub
 		
-//		Session session = hibernateTemplate.getSessionFactory().openSession();
 		
 		hibernateTemplate.merge(t);
 		
 		return t;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isEmailExist(String email) {
+	
+		List<T> users = null;
+		SessionFactory factory = hibernateTemplate.getSessionFactory();
+		Session session ;
+		if(factory !=null) {
+			session = factory.openSession();
+			
+			if(session != null) {
+				 users = session.createQuery("FROM User U WHERE U.email = :email").setParameter("email", email)
+			                .getResultList();
+			}
+		}
 		
-		Session session = hibernateTemplate.getSessionFactory().openSession();
-		
-		@SuppressWarnings("unchecked")
-		List<T> users = session.createQuery("FROM User U WHERE U.email = :email").setParameter("email", email)
-                .getResultList();
-		
-		
-		return users.size() > 0 ? true : false;
+		return (users!=null && users.size()>0) ? true : false;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -74,18 +79,29 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 	public T find(String email, String password) {
 		// TODO Auto-generated method stub
 		
-		Session session = hibernateTemplate.getSessionFactory().openSession();
 		
-		List<T> users = session.createQuery("FROM User U WHERE U.email = :email AND password = :password" )
-				.setParameter("email", email)
-				.setParameter("password", password)
-				.getResultList();
-		
-		if(users.size() > 0) {
-			return users.get(0);
+		List<T> users = null;
+		SessionFactory factory = hibernateTemplate.getSessionFactory();
+		Session session ;
+		if(factory !=null) {
+			session = factory.openSession();
+			
+			if(session != null) {
+				users = session.createQuery("FROM User U WHERE U.email = :email AND password = :password" )
+						.setParameter("email", email)
+						.setParameter("password", password)
+						.getResultList();
+			
+			}
 		}
+			
+//		if(users.size() > 0) {
+//			return users.get(0);
+//		}
+//		
+//		return null;
 		
-		return null;
+		return (users!=null && users.size()>0) ? users.get(0) : null ;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -93,10 +109,18 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 	public List<T> getAllUsers() {
 		// TODO Auto-generated method stub
 		
-		Session session = hibernateTemplate.getSessionFactory().openSession();
-		
-		List<T> users = session.createQuery("FROM User WHERE role = :role " ).setParameter("role", "user")
-				.getResultList();
+		List<T> users = null;
+		SessionFactory factory = hibernateTemplate.getSessionFactory();
+		Session session ;
+		if(factory !=null) {
+			session = factory.openSession();
+			
+			if(session != null) {
+				users = session.createQuery("FROM User WHERE role = :role " ).setParameter("role", "user")
+						.getResultList();
+			}
+			
+		}
 		
 		
 		
@@ -115,16 +139,26 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 	public T getUserByEmail(String email) {
 		// TODO Auto-generated method stub
 		
-		Session session = hibernateTemplate.getSessionFactory().openSession();
 		
-		List<T> users = session.createQuery("FROM User U WHERE U.email = :email").setParameter("email", email)
-                .getResultList();
-		
-		if(users.size() > 0) {
-			return users.get(0);
+		List<T> users = null;
+		SessionFactory factory = hibernateTemplate.getSessionFactory();
+		Session session ;
+		if(factory !=null) {
+			session = factory.openSession();
+			
+			if(session != null) {
+				users = session.createQuery("FROM User U WHERE U.email = :email").setParameter("email", email)
+		                .getResultList();
+			}
 		}
 		
-		return null;
+//		if(users.size() > 0) {
+//			return users.get(0);
+//		}
+//		
+//		return null;
+		
+		return (users!=null && users.size()>0) ? users.get(0) : null ;
 		
 		
 	}

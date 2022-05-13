@@ -7,12 +7,12 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ums.bean.Address;
 import ums.bean.EmailMessageBean;
 import ums.bean.User;
 import ums.dao.GenericDao;
 import ums.utility.DataUtility;
 import ums.utility.EmailUtility;
+import ums.utility.PasswordSecurity;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,7 +21,13 @@ public class UserServiceImpl implements UserService {
 	private GenericDao<User> dao;
 
 	@Override
-	public int create(User user) {
+	public int create(User user) throws Exception {
+		
+		PasswordSecurity ps = new PasswordSecurity();
+		String password = user.getPassword();
+		
+		user.setPassword(ps.encrypt(password)); // encrypt
+		
 		return dao.create(user);
 	}
 
@@ -37,9 +43,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUser(String email, String password) {
+	public User getUser(String email, String password) throws Exception {
 
-		return dao.find(email, password);
+		PasswordSecurity ps = new PasswordSecurity();
+		String pass = ps.encrypt(password); // encrypt
+		User user = dao.find(email, pass);
+		
+		if(user != null) {
+			user.setPassword(password);	
+		}
+		
+		return user;
 
 	}
 
@@ -58,10 +72,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserById(String userid) {
-
+	public User getUserById(String userid) throws Exception {
+		PasswordSecurity ps = new PasswordSecurity();
 		User user = dao.findById(Integer.parseInt(userid));
+		
+		String password = user.getPassword();
 
+		user.setPassword(ps.decrypt(password));
 		return user;
 	}
 
@@ -72,7 +89,7 @@ public class UserServiceImpl implements UserService {
 		String msg;
 		if (user == null) {
 			msg = "Email is not registered";
-		} else if ((user.getSecurity_answer().equals(s_ans) && user.getSecurity_question().equals(s_que))) {
+		} else if (user.getSecurity_answer().equals(s_ans) && user.getSecurity_question().equals(s_que)) {
 			System.out.println("hellooooo");
 			msg = null;
 		} else {
@@ -111,7 +128,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void updateUser(User user) throws Exception {
+		
+		PasswordSecurity ps = new PasswordSecurity();
+		String password = user.getPassword();
+		
+		user.setPassword(ps.encrypt(password)); // encrypt
+		
+		
 		dao.update(user);
 	}
 
@@ -128,7 +152,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updatePssword(String email, String password) {
+	public void updatePssword(String email, String password) throws Exception {
+		
+		PasswordSecurity ps = new PasswordSecurity();
+		password = ps.encrypt(password);
 		
 		User user = dao.getUserByEmail(email);
 		user.setPassword(password);

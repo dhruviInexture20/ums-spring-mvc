@@ -4,6 +4,16 @@
 
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
+	<filter>
+		<filter-name>LoginAuthFilter</filter-name>
+		<display-name>LoginAuthFilter</display-name>
+		<description></description>
+		<filter-class>ums.filter.LoginAuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginAuthFilter</filter-name>
+		<url-pattern>/LoginAuthFilter</url-pattern>
+	</filter-mapping>
 
 	<servlet>
 		<servlet-name>spring</servlet-name>

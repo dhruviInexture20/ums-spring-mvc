@@ -75,6 +75,8 @@ public class EmailUtility {
 		case EmailMessageBean.TEXT_MSG:
 			msg.setContent(emailMessageDTO.getMessage(), "text/plain");
 			break;
+		default:
+			break;
 		}
 
 		// Send the mail

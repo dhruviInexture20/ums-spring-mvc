@@ -18,12 +18,9 @@
                <div class="panel panel-default">
                   <div class="panel-body">
                      <div class="text-center">
-                     	<div class="error-msg">
-               	 			                     	
-                     	</div>
                         <h2 class="text-center">Reset Password</h2>
                         <div class="panel-body">
-                           <form action="UpdatePasswordController" id="resetpassword_form" role="form" class="form" method="post">
+                           <form action="updatePasswordController" id="resetpassword_form" role="form" class="form" method="post">
                               <div class="form-group">
                                  <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock color-blue"></i></span>

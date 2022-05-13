@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 	// get user address
 	$.ajax({
-		url: "GetUserAddress",
+		url: "getUserAddress",
 		type: "post",
 		data:{
 			userid : function(){

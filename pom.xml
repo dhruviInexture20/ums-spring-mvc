@@ -121,6 +121,12 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.15</version>
+		</dependency>
 
 	</dependencies>
 
@@ -138,6 +144,26 @@
 						<server>TomcatServer</server>
 						<path>/ums-sring-mvc</path>
 					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>3.16.0</version>
+				</plugin>
+				
+				<plugin>
+					<groupId>com.github.spotbugs</groupId>
+					<artifactId>spotbugs-maven-plugin</artifactId>
+					<version>4.5.3.0</version>
+					<dependencies>
+						<!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+						<dependency>
+							<groupId>com.github.spotbugs</groupId>
+							<artifactId>spotbugs</artifactId>
+							<version>4.6.0</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 
 			</plugins>

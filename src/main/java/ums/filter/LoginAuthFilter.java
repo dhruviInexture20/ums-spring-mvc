@@ -13,38 +13,41 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-
-@WebFilter(urlPatterns = {"/adminDashboard", "/profile", "/editUserController"})
-public class CustomFilter implements Filter {
+@WebFilter(urlPatterns = {"/"  ,"/login" })
+public class LoginAuthFilter implements Filter {
 
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
 		
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
 
 		HttpSession session=req.getSession(false);
 		
-		res.setHeader("Cache-Control","no-chache,no-store,must-revalidate");
-		res.setHeader("Pragma", "no-chache");
-		res.setDateHeader("Expires", 0);
-		 
-		 if(session==null)
-		 {
-			res.sendRedirect("login");
-		 }
-		 else
-		 { 	
+		if(session != null) {
+			
+			String role = (String) session.getAttribute("role");
+			
+			if(role != null && role.equals("user")) {
+				res.sendRedirect("profile");
+			}
+			else if(role != null && role.equals("admin")) {
+				res.sendRedirect("adminDashboard");
+			}
+			else {
+				
+				chain.doFilter(request, response);
+			}
+		}
+		else {
+				
 			chain.doFilter(request, response);
-		 }
+		}	
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
-	
 	}
 
 }

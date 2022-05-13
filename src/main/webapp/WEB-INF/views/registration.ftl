@@ -298,7 +298,7 @@
 			</div>
 			</#if>
 			<div class="col-md-3">
-				<a href="LogOutController" class="btn btn-primary my-btn">LogOut</a>
+				<a href="logOutController" class="btn btn-primary my-btn">LogOut</a>
 			</div>
 			 
 			 

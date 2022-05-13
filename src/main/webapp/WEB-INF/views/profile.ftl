@@ -30,11 +30,11 @@
                         <div class="profile-head">
                                     <h4>
                                         ${ user.firstname } ${ user.lastname }
-                                        <c:out value=''/>
+                                        
                                     </h4>
                                     <h6>
                                         ${ user.designation }
-                                        <c:out value=''/>
+                                        
                                     </h6>
                                     
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -47,13 +47,13 @@
                     <div class="col-md-2">
                         <!-- <a href="registration.jsp" class="profile-edit-btn"  >Edit Profile </a> -->
                         
-                        <a href="LogOutController" class="btn btn-primary text-center">Logout</a>
+                        <a href="logOutController" class="btn btn-primary text-center">Logout</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 text-center">
                     <div class="row">
-                    	<form action="EditUserController" method="post">
+                    	<form action="editUserController" method="post">
                         	<input type="hidden" value="${user.userid}" id="hidden_userid" name="userid">
             				<input type="submit" class="btn btn-primary" value="Edit Profile" id="submit">
                         

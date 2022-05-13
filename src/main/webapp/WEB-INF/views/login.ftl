@@ -33,7 +33,7 @@
         <form action="process_login" method="post" id="login_form">
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                <input type="email" class="form-control" id="email" name="email" value="<#if email??>${email}</#if>" placeholder="Email">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

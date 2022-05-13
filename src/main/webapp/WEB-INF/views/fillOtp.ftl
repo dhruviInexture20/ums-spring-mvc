@@ -25,7 +25,7 @@
                         <p>For OTP check your mail</p>
                         <div class="panel-body">
             
-                           <form action="VerifyOTPController" id="otp_form" role="form" autocomplete="off" class="form" method="post">
+                           <form action="verifyOTPController" id="otp_form" role="form" autocomplete="off" class="form" method="post">
                               <div class="form-group">
                                  <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-hand-right color-blue"></i></span>
